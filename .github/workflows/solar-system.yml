@@ -110,7 +110,6 @@ jobs:
           with:
             method: kubeconfig
             kubeconfig: ${{ secrets.KUBECONFIG }}
-            context: development
 
         - name: Verify k8s
           run: kubectl version --short -o yaml
