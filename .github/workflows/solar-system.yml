@@ -113,7 +113,7 @@ jobs:
 
         - name: Verify k8s
           run: kubectl version -o yaml
-          
+
 
         - run: >
             echo "INGRESS_IP=$(kubectl -n ingress-nginx get services
@@ -132,3 +132,8 @@ jobs:
               }}
             INGRESS_IP: '${{ env.INGRESS_IP }}'
         - run: cat kubernetes/development/*.yaml
+    integration-testing:
+      needs: dev-deploy
+      uses: ./.github/workflows/reusable-workflow.yml
+      with: 
+        ingress-url: ${{ needs.dev-deploy.outputs.APP_INGRESS_URL }}
